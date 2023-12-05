@@ -14,10 +14,10 @@ stack_exchange_endpoint = 'https://api.stackexchange.com/2.3/questions'
 stack_exchange_params = {
     'site': 'stackoverflow',
     'key': stack_exchange_api_key,
-    'filter': 'withbody',
+    'filter': 'withbody', #withbody includes the contents of the questions 'body' section in the response
     'order': 'desc',
     'sort': 'creation',
-    'tagged': 'python',
+    'tagged': 'python', # look for questions tagged with 'python'
     'answers': 0,  # Filter for unanswered questions
 }
 
@@ -31,14 +31,14 @@ if stack_exchange_response.status_code == 200:
 
     # Step 2: Ask ChatGPT for answers to each question
     for question in stack_exchange_data['items']:
-        # Ask ChatGPT for an answer
+        # Ask ChatGPT for an answer by providing the question title and contents of the question body in the chatgpt request object
         chatgpt_response = openai.Completion.create(
             engine="text-davinci-002",  # Specify the ChatGPT engine
             prompt=f"Answer the following question:\n\n{question['title']}\n\n{question['body']}",
             max_tokens=150,
         )
 
-        # Print the answer
+        # Print the question title and body followed by the answer that chatgpt responds with
         print(f"Question Title: {question['title']}")
         print(f"Question Body: {question['body']}")
         print(f"ChatGPT Answer: {chatgpt_response['choices'][0]['text'].strip()}")
