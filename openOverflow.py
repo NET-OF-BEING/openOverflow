@@ -2,10 +2,10 @@ import requests
 import openai
 
 # Set your Stack Exchange API key
-stack_exchange_api_key = 'c99keUReFfsGseL0IYaonQ(('
+stack_exchange_api_key = '(('
 
 # Set your OpenAI API key
-openai.api_key = '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'
+openai.api_key = 'sk-'
 
 # Step 1: Retrieve new unanswered questions with the Python tag from Stack Exchange API
 
