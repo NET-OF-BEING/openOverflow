@@ -30,22 +30,17 @@ if stack_exchange_response.status_code == 200:
     stack_exchange_data = stack_exchange_response.json()
 
     # Step 2: Ask ChatGPT for answers to each question
-
     for question in stack_exchange_data['items']:
-        # print(question)
-        question_title = question.get('title', '')
-        question_body = question.get('body', '')
-        print(question_body)
         # Ask ChatGPT for an answer
         chatgpt_response = openai.Completion.create(
             engine="text-davinci-002",  # Specify the ChatGPT engine
-            prompt=f"Answer the following question:\n\n{question['title']}",
+            prompt=f"Answer the following question:\n\n{question['title']}\n\n{question['body']}",
             max_tokens=150,
         )
 
         # Print the answer
         print(f"Question Title: {question['title']}")
-        print(f"Question Body: {question_body}")
+        print(f"Question Body: {question['body']}")
         print(f"ChatGPT Answer: {chatgpt_response['choices'][0]['text'].strip()}")
         print("-" * 50)
 
